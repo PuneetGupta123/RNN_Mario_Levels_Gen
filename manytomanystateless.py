@@ -81,8 +81,8 @@ model.add(Dropout(0.2))
 #model.add(TimeDistributedDense(len(chars)))
 model.add(TimeDistributed(Dense(len(chars))))
 model.add(Activation('softmax'))
-# filename = "manytomanystatefulrmsprop1-00-0.4469.hdf5"#.4469 loss model in individual level folder
-# model.load_weights(filename)
+filename = "manytomanystatefulrmsprop1-00-0.6318.hdf5"
+model.load_weights(filename)
 rmsprop = optimizers.RMSprop(lr=0.0001)
 
 #adam2 = optimizers.Adam(lr=0.01, decay=0.9)
@@ -100,23 +100,23 @@ print ('model is made')
 
 print (model.summary())
 
-filepath="manytomanystatefulrmsprop1-{epoch:02d}-{loss:.4f}.hdf5"
-checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, mode='min')
-callbacks_list = [checkpoint]
-for i in range(500):
-    #print (adam3.lr)
-    for j in range(13):
-        #print (X[j][0])
-        #print (y[j][0])
-        if j==12:
-            hist = model.fit(X[j], y[j], epochs=1, batch_size=1, verbose=1, shuffle=False, callbacks=callbacks_list)
-            model.reset_states()
-            print (hist.history)
-        else:
-            hist = model.fit(X[j], y[j], epochs=1, batch_size=1, verbose=1, shuffle=False)
-            model.reset_states()
-            print (hist.history)   
-    print ("Epoch "+ str(i+1)+" completed")    
+# filepath="manytomanystatefulrmsprop1-{epoch:02d}-{loss:.4f}.hdf5"
+# checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, mode='min')
+# callbacks_list = [checkpoint]
+# for i in range(500):
+#     #print (adam3.lr)
+#     for j in range(13):
+#         #print (X[j][0])
+#         #print (y[j][0])
+#         if j==12:
+#             hist = model.fit(X[j], y[j], epochs=1, batch_size=1, verbose=1, shuffle=False, callbacks=callbacks_list)
+#             model.reset_states()
+#             print (hist.history)
+#         else:
+#             hist = model.fit(X[j], y[j], epochs=1, batch_size=1, verbose=1, shuffle=False)
+#             model.reset_states()
+#             print (hist.history)   
+#     print ("Epoch "+ str(i+1)+" completed")    
 #fit the model
 #model.fit(X, y, epochs=10, batch_size=64, callbacks=callbacks_list)
 
