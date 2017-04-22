@@ -100,52 +100,52 @@ print ('model is made')
 
 print (model.summary())
 
-# filepath="manytomanystatefulrmsprop1-{epoch:02d}-{loss:.4f}.hdf5"
-# checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, mode='min')
-# callbacks_list = [checkpoint]
-# for i in range(500):
-#     #print (adam3.lr)
-#     for j in range(13):
-#         #print (X[j][0])
-#         #print (y[j][0])
-#         if j==12:
-#             hist = model.fit(X[j], y[j], epochs=1, batch_size=1, verbose=1, shuffle=False, callbacks=callbacks_list)
-#             model.reset_states()
-#             print (hist.history)
-#         else:
-#             hist = model.fit(X[j], y[j], epochs=1, batch_size=1, verbose=1, shuffle=False)
-#             model.reset_states()
-#             print (hist.history)   
-#     print ("Epoch "+ str(i+1)+" completed")    
-#fit the model
-#model.fit(X, y, epochs=10, batch_size=64, callbacks=callbacks_list)
+filepath="manytomanystatefulrmsprop1-{epoch:02d}-{loss:.4f}.hdf5"
+checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, mode='min')
+callbacks_list = [checkpoint]
+for i in range(500):
+    #print (adam3.lr)
+    for j in range(13):
+        #print (X[j][0])
+        #print (y[j][0])
+        if j==12:
+            hist = model.fit(X[j], y[j], epochs=1, batch_size=1, verbose=1, shuffle=False, callbacks=callbacks_list)
+            model.reset_states()
+            print (hist.history)
+        else:
+            hist = model.fit(X[j], y[j], epochs=1, batch_size=1, verbose=1, shuffle=False)
+            model.reset_states()
+            print (hist.history)   
+    print ("Epoch "+ str(i+1)+" completed")    
+# fit the model
+model.fit(X, y, epochs=10, batch_size=64, callbacks=callbacks_list)
 
 # start = np.random.randint(0, len(sentences)-1)
 # #print start
 # seed_string = sentences[start]
 
 
-seed_string="s"
-print ("seed string -->", seed_string)
-print ('The generated text is')
-sys.stdout.write(seed_string)
-# x=np.zeros((1, len(seed_string), len(chars)))
-for i in range(320):
-    x=np.zeros((1, len(seed_string), len(chars)))
-    for t, char in enumerate(seed_string):
-        x[0, t, char_indices[char]] = 1
-    preds = model.predict(x, verbose=0)[0]
+# seed_string="s"
+# print ("seed string -->", seed_string)
+# print ('The generated text is')
+# sys.stdout.write(seed_string)
+# # x=np.zeros((1, len(seed_string), len(chars)))
+# for i in range(320):
+#     x=np.zeros((1, len(seed_string), len(chars)))
+#     for t, char in enumerate(seed_string):
+#         x[0, t, char_indices[char]] = 1
+#     preds = model.predict(x, verbose=0)[0]
 
-    #############Comment start###############33
+#     #############Comment start###############33
 
-    preds = np.asarray(preds[len(seed_string)-1]).astype('float64')
-    preds = np.log(preds) / 2.0
-    exp_preds = np.exp(preds)
-    preds = exp_preds / np.sum(exp_preds)
-    #print (preds)
-    probas = np.random.multinomial(1, preds, 1)
-    #print (probas)
-    next_index=np.argmax(probas)
+#     preds = np.asarray(preds[len(seed_string)-1]).astype('float64')
+#     preds = np.log(preds) / 2.0
+#     exp_preds = np.exp(preds)
+#     preds = exp_preds / np.sum(exp_preds)
+#     #print (preds)
+#     probas = np.random.multinomial(1, preds, 1)
+#     #print (probas)
+#     next_index=np.argmax(probas)
 
 
     ########33333333###commenr end##################33333
@@ -161,13 +161,13 @@ for i in range(320):
     #print (preds.shape)
     #print (preds)
     #next_index = sample(preds, 1) #diversity is 1
-    next_char = indices_char[next_index]
-    seed_string = next_char
+    # next_char = indices_char[next_index]
+    # seed_string = next_char
     #seed_string = seed_string[1:len(seed_string)]
     #print (seed_string)
     #print ('##############')
     #if i==40:
     #    print ('####')
-    sys.stdout.write(next_char)
+    # sys.stdout.write(next_char)
 
-sys.stdout.flush()    
+# sys.stdout.flush()    
