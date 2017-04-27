@@ -76,13 +76,13 @@ model = Sequential()
 #model.add(LSTM(512, return_sequences=True, input_shape=(maxlen, len(chars))))  # original one
 #model.add(LSTM(32, input_shape=(maxlen,len(chars)), return_sequences = True)) #minesh witout specifying the input_length
 #model.add(LSTM(512, return_sequences=True)) #- original
-model.add(LSTM(32, batch_input_shape=(1, None, len(chars)), return_sequences = True, stateful=True)) 
+model.add(LSTM(256, batch_input_shape=(1, None, len(chars)), return_sequences = True, stateful=True)) 
 model.add(Dropout(0.2))
 #model.add(TimeDistributedDense(len(chars)))
 model.add(TimeDistributed(Dense(len(chars))))
 model.add(Activation('softmax'))
-filename = "manytomanystatefulrmsprop1-00-0.6318.hdf5"
-model.load_weights(filename)
+#filename = "manytomanystatefulrmsprop1-00-0.6318.hdf5"
+#model.load_weights(filename)
 rmsprop = optimizers.RMSprop(lr=0.0001)
 
 #adam2 = optimizers.Adam(lr=0.01, decay=0.9)
@@ -100,7 +100,7 @@ print ('model is made')
 
 print (model.summary())
 
-filepath="manytomanystatefulrmsprop1-{epoch:02d}-{loss:.4f}.hdf5"
+filepath="manytomanystatefulrmsprop2-{epoch:02d}-{loss:.4f}.hdf5"
 checkpoint = ModelCheckpoint(filepath, monitor='loss', verbose=1, mode='min')
 callbacks_list = [checkpoint]
 for i in range(500):
